@@ -26,7 +26,7 @@ Importante apenas ressaltar os seguintes pontos:
 
 O linker irá buscar pelo símbolo **_start**, que deverá referenciar a instrução inicial do código.
 
-O inicial do código gerado ficará da seguinte forma:
+O início do código gerado ficará da seguinte forma:
 
 - Endereço 0 (zero): conterá o valor 0 (zero)
 
