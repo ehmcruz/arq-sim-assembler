@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
 #include <wchar.h>
 #include <wctype.h>
 #include "lex.h"
@@ -31,7 +32,7 @@ const char* lex_token_str (lex_token_type_t type)
 
 static void load_file (lex_t *lex)
 {
-	lex->fp = fopen(lex->fname, "r");
+	lex->fp = fopen(lex->fname, "rb");
 
 	if (!lex->fp) {
 		printf("cannot open file %s\n", lex->fname);
@@ -45,8 +46,10 @@ static void load_file (lex_t *lex)
 	assert(lex->buffer != NULL);
 	rewind(lex->fp);
 
-	if (fread(lex->buffer, 1, lex->bsize, lex->fp) != lex->bsize) {
-		printf("error loading file %s\n", lex->fname);
+	const int32_t nread = fread(lex->buffer, 1, lex->bsize, lex->fp);
+
+	if (nread != lex->bsize) {
+		printf("error loading file %s - read %i\n", lex->fname, nread);
 		exit(1);
 	}
 
@@ -108,6 +111,9 @@ void lex_get_token (lex_t *lex, lex_token_t *token)
 							state = LEX_STATE_END;
 						}
 					}
+				}
+				else if (c == '\r') { // ignore carriage return
+					io_inc(lex);
 				}
 				else if (iswdigit(c)) {
 					p = token->data.label;

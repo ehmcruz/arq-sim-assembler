@@ -151,7 +151,7 @@ void linker_generate_binary (syntax_tree_t *tree, char *fname_out)
 	linker_calculate_vaddrs(tree);
 	linker_fill_place_holders(tree);
 
-	fp = fopen(fname_out, "w");
+	fp = fopen(fname_out, "wb");
 	if (!fp) {
 		printf("cannot open output file %s\n", fname_out);
 		exit(1);
