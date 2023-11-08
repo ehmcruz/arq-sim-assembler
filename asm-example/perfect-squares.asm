@@ -1,13 +1,16 @@
 data: .data 10
+n: .word 9;
 sep: .asciiz " -> "
 str_end: .asciiz "perfect-squares ended"
 
 _start:
+	mov r0, n
+	load r2, [r0]
+
 	mov r0, 2             # 2 is newline print service
 	syscall
 
 	mov r0, 1   # teste comentario
-	mov r2, 8
 	mov r1, 1
 	mov r4, data
 loop:
