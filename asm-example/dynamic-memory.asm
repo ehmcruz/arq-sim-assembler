@@ -41,6 +41,10 @@ _start:
 	add r1, r4, r7
 	syscall
 
+	# walk in allocated address
+
+	load r5, [r4]
+
 	# print newline
 
 	mov r0, 2
