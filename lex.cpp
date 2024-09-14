@@ -14,6 +14,7 @@ enum lex_state_t {
 	LEX_STATE_INTEGER,
 	LEX_STATE_LABEL,
 	LEX_STATE_STRING,
+	LEX_STATE_STRING_ESCAPE,
 	LEX_STATE_COMMENT,
 	LEX_STATE_END
 };
@@ -247,7 +248,11 @@ void lex_get_token (lex_t *lex, lex_token_t *token)
 				break;
 			
 			case LEX_STATE_STRING:
-				if (c != '"') {
+				if (c == '\\') {
+					state = LEX_STATE_STRING_ESCAPE;
+					io_inc(lex);
+				}
+				else if (c != '"') {
 					*p = c;
 					p++;
 					io_inc(lex);
@@ -257,6 +262,37 @@ void lex_get_token (lex_t *lex, lex_token_t *token)
 					io_inc(lex);
 					token->type = LEX_TOKEN_STRING;
 					state = LEX_STATE_END;
+				}
+				break;
+			
+			case LEX_STATE_STRING_ESCAPE:
+				if (c == 'n') {
+					*p = '\n';
+					p++;
+					io_inc(lex);
+					state = LEX_STATE_STRING;
+				}
+				else if (c == 't') {
+					*p = '\t';
+					p++;
+					io_inc(lex);
+					state = LEX_STATE_STRING;
+				}
+				else if (c == '\\') {
+					*p = '\\';
+					p++;
+					io_inc(lex);
+					state = LEX_STATE_STRING;
+				}
+				else if (c == '"') {
+					*p = '"';
+					p++;
+					io_inc(lex);
+					state = LEX_STATE_STRING;
+				}
+				else {
+					printf("lex error line %u: invalid character after escape at string\n", lex->row);
+					exit(1);
 				}
 				break;
 
