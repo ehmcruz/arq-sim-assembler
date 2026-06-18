@@ -12,7 +12,7 @@ O binário do compilador é o **pasm**.
 
 # Sobre o conjunto de instruções
 
-A especificação do conjunto de instruções pode ser consultada na aula que ministro, em **docs/12-instrucoes-codificacao.pdf**.
+A especificação do conjunto de instruções pode ser consultada na aula que ministro, [neste link](https://drive.google.com/file/d/1Nmx3BCSIip_pgfKTOJiPLcYIl5CFdgP6/view?usp=drive_link).
 
 Importante apenas ressaltar os seguintes pontos:
 
