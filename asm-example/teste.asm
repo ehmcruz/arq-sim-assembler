@@ -1,5 +1,5 @@
-data: .data 50
-vector: .word 0 1 2 3 4 5 6 7 8 9;
+data: .data 50    # allocate space for n words, zero initialized
+vector: .word 0 1 2 3 4 5 6 7 8 9;   # allocate several words specifying their initial values
 name: .asciiz "Eduardo"
 
 

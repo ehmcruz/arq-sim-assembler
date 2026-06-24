@@ -20,9 +20,11 @@ Importante apenas ressaltar os seguintes pontos:
 
 - Os registradores são de 16 bits
 
-- Cada palavra da memória também tem 16 bits, de forma que o endereço 0 (zero) referencia os bytes 0 e 1, o endereço 1 referencia os bytes 2 e 3, e assim por diante.
+- Cada palavra (word) da memória também tem 16 bits, de forma que o endereço 0 (zero) referencia os bytes 0 e 1, o endereço 1 referencia os bytes 2 e 3, e assim por diante.
 
 # Sobre o código gerado
+
+O espaço de endereçamento de memória gerado inicia no endereço **0 (zero)** e vai até **n - 1**, sendo **n** o tamanho do binário em words.
 
 O linker irá buscar pelo símbolo **_start**, que deverá referenciar a instrução inicial do código.
 
